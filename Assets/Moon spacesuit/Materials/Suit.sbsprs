@@ -1,0 +1,7 @@
+<sbspresets count="1" formatversion="1.1">
+  <sbspreset pkgurl="pkg://Suit" label="" >
+  <presetinput identifier="dirt1balance" uid="2383921948" type="0" value="0" />
+  <presetinput identifier="dirt2balance" uid="2384078823" type="0" value="0.188" />
+  <presetinput identifier="dirt2contrast" uid="2383815006" type="0" value="0.32" />
+ </sbspreset>
+</sbspresets>
