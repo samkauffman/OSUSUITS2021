@@ -1,9 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class RangeCheck : MonoBehaviour
 {
+    //Change back to transform
+    public GameObject Warnings;
+    public GameObject prefabErrorMessage;
+    public GameObject alertButton;
+    public GameObject warningMessagesContainer;
+    bool alert = false;
+
+    GameObject[] alerts;
+
+    //public TextMeshPro prefabErrorMessageText;
+    int prefabCounter = 0;
+    float offset = 0.02f;
+    public TMP_Text currText;
+    Vector3 prefabOffset;
+
     JsonData jsonData;
     string timer;
     int ox_primary;   // PRIMARY OXYGEN - percentage 
@@ -32,6 +48,59 @@ public class RangeCheck : MonoBehaviour
 
     void Update()
     {
+        // ====================================
+        //Add to all alerts
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            alert = true;
+        }
+
+        //if all alerts are gone
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            alert = false;
+            Debug.Log("Alert Button Off");
+            alertButton.SetActive(false);
+        }
+
+        if(alert && alertButton.activeSelf == false)
+        {
+            Debug.Log("Alert Button On");
+            alertButton.SetActive(true);
+        }
+
+        
+
+        //Switch this with if pressing the emergency button
+        if (Input.GetKeyDown(KeyCode.F3) && alertButton.activeSelf == true && warningMessagesContainer.activeSelf == false)
+        {
+            warningMessagesContainer.SetActive(true);
+        }
+
+        //Switch with if pressing the emergency button to again
+        if (Input.GetKeyDown(KeyCode.F4) && alertButton.activeSelf == true && warningMessagesContainer.activeSelf == true)
+        {
+            warningMessagesContainer.SetActive(false);
+        }
+
+        // =================================
+
+
+        if (Input.GetKeyDown(KeyCode.Space) && alertButton.activeSelf == true)
+        {
+            prefabCounter += 1;
+            GameObject newAlert;
+            prefabOffset = new Vector3(prefabErrorMessage.transform.position.x, (prefabErrorMessage.transform.position.y) - prefabCounter * offset, prefabErrorMessage.transform.position.z);
+            newAlert = Instantiate(prefabErrorMessage, prefabOffset, Quaternion.identity).gameObject;
+            newAlert.GetComponentInChildren<TMP_Text>().text = prefabCounter.ToString();
+            newAlert.transform.parent = Warnings.transform;
+
+            //currText = GetComponent<TMP_Text>();
+            //currText.text = "A";
+            //newAlert.GetComponent<TMP_Text>().text = "Hello";
+            //newAlert.GetComponent<TextMeshPro>().text = "a";
+            //newAlert.GetComponent<TextMeshPro>().text = currText.text;
+        }
         //Converting input string to their corresponding data type
         //Floats: 
         p_suit = float.Parse(jsonData.suitData.p_suit);
