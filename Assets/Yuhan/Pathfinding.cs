@@ -15,13 +15,15 @@ public class Pathfinding : MonoBehaviour
     private void Awake()//run when start
     {
         Map = GetComponent<Grid>();//to get game manager class involved
+        
     }
 
     private void Update()//Update is called for every frame
     {
         Make_Decision(Original_Point.position, Destination_Point.position);//choose the path from start to Destination
-       
-        
+
+        Map.DrawCube();
+        Map.BtnStart();
             
     }
 
@@ -104,4 +106,5 @@ public class Pathfinding : MonoBehaviour
 
         return Num_One + Num_Two;
     }
+
 }

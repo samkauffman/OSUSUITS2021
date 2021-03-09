@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Grid : MonoBehaviour
 {
-
+    //public Button N;
+    private int s2;
     public Transform Original_Point;
     public LayerMask Box;
     public Vector2 world_units;
     public float Square_Size;
     public float Square_Interval;
-
+    public Material C_Y;
+    public Material C_X;
+    public Material C_Z;
     Node[,] A_Star_algorithm_Array;
     public List<Node> system_decision;
 
@@ -21,12 +24,33 @@ public class Grid : MonoBehaviour
     
     private void Start()//Function runs when start
     {
+        s2 = 0;
         Node_Total = Square_Size * 2;
         Size_One = Mathf.RoundToInt(world_units.x / Node_Total);
         Size_Two = Mathf.RoundToInt(world_units.y / Node_Total);
+        //Button btn = N.GetComponent<Button>();
+        //btn.onClick.AddListener(TaskOnClick);
         CreateGrid();
+        Debug.Log(12);
+        
     }
+    public void BtnStart()
+    {
+        s2 = s2 + 1;
+    }
+    //void TaskOnClick()
+    //{
+        //s2 = s2 + 1;
+    //}
+    void Update()
+    {
+        if (s2 == 1)
+        {
+            C_Y = C_X;
+        }
 
+
+    }
     void CreateGrid()//Function Create the Grid
     {
         A_Star_algorithm_Array = new Node[Size_One, Size_Two];//Declaretion
@@ -113,37 +137,68 @@ public class Grid : MonoBehaviour
 
 
     //Draw Function
-    private void OnDrawGizmos()
+    public void DrawCube()
     {
 
-        Gizmos.DrawWireCube(transform.position, new Vector3(world_units.x, 1, world_units.y));
+        //Gizmos.DrawWireCube(transform.position, new Vector3(world_units.x, 1, world_units.y));
+
+
+        Debug.Log(A_Star_algorithm_Array);
 
         if (A_Star_algorithm_Array != null)
         {
+
             foreach (Node n in A_Star_algorithm_Array)
             {
+                
                 if (n.Blocked)
                 {
                     Gizmos.color = Color.white;
+
                 }
+
                 else
                 {
                     Gizmos.color = Color.black;
                 }
-
-
+                //Color cubeColor;
+                Debug.Log(system_decision);
                 if (system_decision != null)
                 {
+
+                    Debug.Log(system_decision.Contains(n));
+                    //Code that Sam tried to use. Just slowed down further and removed all cubes
+                    //Collider[] colliders = Physics.OverlapSphere(n.Node_Location, 0.1f, Box); //See if there are already cubes here
+                    //if (colliders != null && !system_decision.Contains(n))
+                    //{//There are cubes here where there shouldn't be, destroy them before making the line again
+                    //    foreach (Collider co in colliders)
+                    //    {
+                    //        Destroy(co.GetComponent<GameObject>());
+                    //    }
+
+                    //}else 
                     if (system_decision.Contains(n))
                     {
-                        Gizmos.color = Color.blue;
+                        GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+                        cube.transform.position = n.Node_Location;
+                        cube.transform.GetComponent<Renderer>().material = C_Y;
+
+                        Destroy(cube, 1);
+
+
+
                     }
+
 
                 }
 
+                //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
-                Gizmos.DrawCube(n.Node_Location, Vector3.one * (Node_Total - Square_Interval));//Draw the node at the position of the node.
+                //cube.transform.position = n.Node_Location;
+                //Gizmos.DrawCube(n.Node_Location, Vector3.one * (Node_Total - Square_Interval));//Draw the node at the position of the node.
             }
         }
     }
+
 }

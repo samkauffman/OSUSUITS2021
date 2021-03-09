@@ -12,13 +12,16 @@ public class RangeCheck : MonoBehaviour
     public GameObject warningMessagesContainer;
     bool alert = false;
 
-    GameObject[] alerts;
+    GameObject[] alerts = new GameObject[18];
+    //bool[] currentAlerts = new bool[18];
+
+
 
     //public TextMeshPro prefabErrorMessageText;
-    int prefabCounter = 0;
-    float offset = 0.02f;
-    public TMP_Text currText;
-    Vector3 prefabOffset;
+    int prefabCounter = 0;      //The number of current error messages
+    float offset = 0.02f;       //The distance between error messages
+    public TMP_Text currText;   //The text currently being edited
+    Vector3 prefabOffset;       //The position offset of the prefabs
 
     JsonData jsonData;
     string timer;
@@ -48,11 +51,12 @@ public class RangeCheck : MonoBehaviour
 
     void Update()
     {
-        // ====================================
+        // =====================================================================
         //Add to all alerts
         if (Input.GetKeyDown(KeyCode.F1))
         {
             alert = true;
+            alerts[0] = prefabErrorMessage;
         }
 
         //if all alerts are gone
@@ -63,13 +67,13 @@ public class RangeCheck : MonoBehaviour
             alertButton.SetActive(false);
         }
 
-        if(alert && alertButton.activeSelf == false)
+        if (alert && alertButton.activeSelf == false)
         {
             Debug.Log("Alert Button On");
             alertButton.SetActive(true);
         }
 
-        
+
 
         //Switch this with if pressing the emergency button
         if (Input.GetKeyDown(KeyCode.F3) && alertButton.activeSelf == true && warningMessagesContainer.activeSelf == false)
@@ -83,7 +87,7 @@ public class RangeCheck : MonoBehaviour
             warningMessagesContainer.SetActive(false);
         }
 
-        // =================================
+        // ==============================================================================================
 
 
         if (Input.GetKeyDown(KeyCode.Space) && alertButton.activeSelf == true)
@@ -92,15 +96,11 @@ public class RangeCheck : MonoBehaviour
             GameObject newAlert;
             prefabOffset = new Vector3(prefabErrorMessage.transform.position.x, (prefabErrorMessage.transform.position.y) - prefabCounter * offset, prefabErrorMessage.transform.position.z);
             newAlert = Instantiate(prefabErrorMessage, prefabOffset, Quaternion.identity).gameObject;
+            alerts[prefabCounter] = newAlert;
             newAlert.GetComponentInChildren<TMP_Text>().text = prefabCounter.ToString();
             newAlert.transform.parent = Warnings.transform;
-
-            //currText = GetComponent<TMP_Text>();
-            //currText.text = "A";
-            //newAlert.GetComponent<TMP_Text>().text = "Hello";
-            //newAlert.GetComponent<TextMeshPro>().text = "a";
-            //newAlert.GetComponent<TextMeshPro>().text = currText.text;
         }
+
         //Converting input string to their corresponding data type
         //Floats: 
         p_suit = float.Parse(jsonData.suitData.p_suit);
@@ -126,31 +126,46 @@ public class RangeCheck : MonoBehaviour
         t_oxygen = jsonData.suitData.t_oxygen;
         t_water = jsonData.suitData.t_water;
 
-        //Debug.Log("float: " + p_suit);
-        //Debug.Log("int: " +ox_primary);
-        //Debug.Log("S: "+timer);
+        #region Suit Check
 
 
         // HEART RATE 80 - 100 bpm --------------->
         if (heart_bpm < 80)
         {
-            Debug.Log("Alert: Low heart rate");
-        }
+            string currAlert = "Alert: Low heart rate " + heart_bpm + "pbm";
+            Debug.Log(currAlert);
+            AddAlert("heart_bpm_error", currAlert);
 
-        if (heart_bpm > 100)
+        }
+        else if (heart_bpm > 100)
         {
-            Debug.Log("Alert: High heart rate");
+            //Debug.Log("Alert: High heart rate");
+            string currAlert = "Alert: Low heart rate " + heart_bpm + "pbm";
+            Debug.Log(currAlert);
+            AddAlert("heart_bpm_error", currAlert);
+        }
+        else
+        {
+            //Normal range
+            RemoveAlert("heart_bpm_error");
         }
 
         // Suit Pressure 2 - 4 ------------------->
         if (p_suit < 2)
         {
-            Debug.Log("Alert: Low suit pressure");
+            string currAlert = "Alert: Low suit pressure " + p_suit;
+            AddAlert("p_suit_error", currAlert);
         }
 
-        if (p_suit > 4)
+        else if (p_suit > 4)
         {
-            Debug.Log("Alert: High suit pressure");
+            string currAlert = "Alert: High suit pressure " + p_suit;
+            AddAlert("p_suit_error", currAlert);
+        }
+
+        else
+        {
+            RemoveAlert("p_suit_error");
         }
 
         // Fan 10,000 - 40,000 ------------------->
@@ -240,5 +255,95 @@ public class RangeCheck : MonoBehaviour
         {
             Debug.Log("Alert: High sop rate");
         }
+
+        #endregion
+
+    }//end of Update()
+
+    void AddAlert(string nameOf, string messageOf)
+    {
+        GameObject toCheck = GameObject.Find(nameOf);
+        if (toCheck == null)
+        {
+            alert = true;
+            //All alerts except for the first one
+            if (prefabCounter != 0)
+            {
+                prefabCounter++;
+                GameObject newAlert;
+                prefabOffset = new Vector3(prefabErrorMessage.transform.position.x, (prefabErrorMessage.transform.position.y) - prefabCounter * offset, prefabErrorMessage.transform.position.z);
+                newAlert = Instantiate(prefabErrorMessage, prefabOffset, Quaternion.identity).gameObject;
+                alerts[prefabCounter] = newAlert;
+                newAlert.name = nameOf;
+                newAlert.GetComponentInChildren<TMP_Text>().text = messageOf;
+                newAlert.transform.parent = Warnings.transform;
+            }
+            else
+            {
+                //First alert
+                prefabErrorMessage.GetComponentInChildren<TMP_Text>().text = messageOf;
+                prefabErrorMessage.name = nameOf;
+                prefabErrorMessage.transform.parent = Warnings.transform;
+                prefabCounter++;
+            }
+        }
+    }
+
+    void RemoveAlert(string name)
+    {
+        int index = 0;
+        GameObject currObject = alerts[index];
+        GameObject toRemove;
+
+        while (alerts[index] != null)
+        {
+            if (currObject.name != name)
+            {
+                index++;
+                currObject = alerts[index];
+            }
+
+        }
+
+        toRemove = currObject;
+        Destroy(toRemove);
+        prefabCounter -= 1;
+
+        while (alerts[index + 1] != null)
+        {
+            GameObject nextAlert = alerts[index + 1];
+            nextAlert.transform.position = new Vector3(nextAlert.transform.position.x, nextAlert.transform.position.y + offset, nextAlert.transform.position.z);
+            index++;
+        }
+
+
+        if (alert && prefabCounter == 0)
+        {
+            alertButton.SetActive(false);
+        }
+
+
+
+        //Destroy(toRemove);
+        //GameObject toRemove = GameObject.Find(name);
+        //Destroy(toRemove);
+
+        //int tmp;
+        //while (alerts != null)
+        //{
+        //tmp = alerts;
+        //    GameObject nextAlert = alerts[tmp + 1];
+        //    nextAlert.transform.position = new Vector3(nextAlert.transform.position.x, nextAlert.transform.position.y + offset, nextAlert.transform.position.z);
+        //    tmp++;
+        //}
+        //Destroy(toRemove);
+
+
+        //prefabCounter -= 1;
+        //Chek if afterlast removal, the alert list is empty
+        //if (alert && prefabCounter == 0)
+        //{
+        //    alertButton.SetActive(false);
+        //}
     }
 }

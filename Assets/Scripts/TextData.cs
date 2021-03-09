@@ -20,7 +20,7 @@ public class TextData : MonoBehaviour
      * UIA Data Variables
      *  
      */
-    /*
+    
    public TextMeshPro emu1_text;
    public TextMeshPro emu2_text;
    public TextMeshPro o2_supply_pressure1_text; 
@@ -35,7 +35,7 @@ public class TextData : MonoBehaviour
    public TextMeshPro oxygen_supp_out2_text;
    public TextMeshPro O2_Vent_text;
    public TextMeshPro depress_pump_text;
-   */
+   
 
 
     /*
@@ -81,22 +81,22 @@ public class TextData : MonoBehaviour
          * Data is collected from Telemetry stream in JsonData.cs 
          * Text is updated as the data streams in from Telemtry
          */
-        /*
+        
        emu1_text.text = "EMU1 = " + jsonData.uiaData.emu1;
        emu2_text.text = "EMU2 = " + jsonData.uiaData.emu2;
-       o2_supply_pressure1_text.text = "EMU1 O2 PRESSURE = " + jsonData.uiaData.o2_supply_pressure1 + " psi";
-       o2_supply_pressure2_text.text = "EMU2 O2 PRESSURE = " + jsonData.uiaData.o2_supply_pressure1 + " psi";
+       //o2_supply_pressure1_text.text = "EMU1 O2 PRESSURE = " + jsonData.uiaData.o2_supply_pressure1 + " psi";
+      // o2_supply_pressure2_text.text = "EMU2 O2 PRESSURE = " + jsonData.uiaData.o2_supply_pressure1 + " psi";
        ev1_supply_text.text = "EV1 SUPPLY = " + jsonData.uiaData.ev1_supply;
        ev2_supply_text.text = "EV2 SUPPLY = " + jsonData.uiaData.ev2_supply;
        ev1_waste_text.text = "EV1 WASTE = " + jsonData.uiaData.ev1_waste;
        ev2_waste_text.text = "EV2 WATSE = " + jsonData.uiaData.ev2_waste;
        emu1_O2_text.text = "EV1 O2 = " + jsonData.uiaData.emu1_O2;
        emu2_O2_text.text = "EV2 O2 = " + jsonData.uiaData.emu2_O2;
-       oxygen_supp_out1_text.text = "oxygen_supp_out1 = " + jsonData.uiaData.oxygen_supp_out1;
-       oxygen_supp_out2_text.text = "oxygen_supp_out2 = " + jsonData.uiaData.oxygen_supp_out2;
+       //oxygen_supp_out1_text.text = "oxygen_supp_out1 = " + jsonData.uiaData.oxygen_supp_out1;
+       //oxygen_supp_out2_text.text = "oxygen_supp_out2 = " + jsonData.uiaData.oxygen_supp_out2;
        O2_Vent_text.text = "O2 VENT = " + jsonData.uiaData.O2_vent;
        depress_pump_text.text = "DEPRESS PUMP = " + jsonData.uiaData.depress_pump;
-       */
+       
 
         /*
          * Suit Data
