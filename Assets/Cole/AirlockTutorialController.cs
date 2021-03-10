@@ -11,6 +11,7 @@ public class AirlockTutorialController : MonoBehaviour
 	public float pressureTime;
 	public TMP_Text tutorialText;
 	public int currentInstruction;
+	private int startingInstruction;
 	private bool isInstructionReady = true;
 	public ProgressBar pressureBar;
 
@@ -19,33 +20,38 @@ public class AirlockTutorialController : MonoBehaviour
 	public AudioClip[] instructionSounds;
     private void Start()
     {
+		startingInstruction = currentInstruction;
 		audioSource = GetComponent<AudioSource>();
-        switch (currentInstruction)
-        {
-            case 0:
-                tutorialText.text = "Airlock Tutorial";
-                break;
-            case 1:
-                tutorialText.text = "Open Inner Door";
-                break;
-            case 2:
-                tutorialText.text = "Close Inner Door";
-                break;
-            case 3:
-                tutorialText.text = "Depressurize Chamber";
-
-                break;
-            case 4:
-                tutorialText.text = "Open Outer Door";
-                break;
-            case 5:
-                tutorialText.text = "Close Outer Door";
-                break;
-
-        }
+		UpdateText();
     }
 
-    public void OpenFrontDoor()
+	private void UpdateText()
+	{
+		switch (currentInstruction)
+		{
+			case 0:
+				tutorialText.text = "Airlock Tutorial";
+				break;
+			case 1:
+				tutorialText.text = "Open Inner Door";
+				break;
+			case 2:
+				tutorialText.text = "Close Inner Door";
+				break;
+			case 3:
+				tutorialText.text = "Depressurize Chamber";
+
+				break;
+			case 4:
+				tutorialText.text = "Open Outer Door";
+				break;
+			case 5:
+				tutorialText.text = "Close Outer Door";
+				break;
+
+		}
+	}
+	public void OpenFrontDoor()
 	{
 		frontDoorAnimator.Play("Open Front Door");
 		audioSource.clip = instructionSounds[0];
@@ -139,5 +145,17 @@ public class AirlockTutorialController : MonoBehaviour
 		isInstructionReady = true;
 		tutorialButton.SetActive(true);
 		pressureBar.gameObject.SetActive(false);
+	}
+
+	public void ResetToDefault()
+	{
+		currentInstruction = startingInstruction;
+		frontDoorAnimator.Play("Front Door Reset");
+		//backDoorAnimator.Play("Back Door Reset");
+		tutorialButton.SetActive(true);
+		pressureBar.gameObject.SetActive(false);
+		isInstructionReady = true;
+		UpdateText();
+		StopCoroutine(DepressurizeChamber());
 	}
 }
