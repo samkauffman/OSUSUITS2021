@@ -820,13 +820,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1061387880118192949, guid: e969038e4d67d9b498de2ef538969506,
         type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1061387880118192949, guid: e969038e4d67d9b498de2ef538969506,
+        type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1061387880118192949, guid: e969038e4d67d9b498de2ef538969506,
+        type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1061387880118192949, guid: e969038e4d67d9b498de2ef538969506,
+        type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 426669645}
+      objectReference: {fileID: 1665634243}
+    - target: {fileID: 1061387880118192949, guid: e969038e4d67d9b498de2ef538969506,
+        type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1061387880118192949, guid: e969038e4d67d9b498de2ef538969506,
         type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Toggle
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 1061387880118192949, guid: e969038e4d67d9b498de2ef538969506,
+        type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1061387880118192949, guid: e969038e4d67d9b498de2ef538969506,
+        type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1104838564556229266, guid: e969038e4d67d9b498de2ef538969506,
         type: 3}
@@ -1301,7 +1331,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 426669643}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c51dffe9f139dbd4bab29fa8535982db, type: 3}
   m_Name: 
@@ -5769,80 +5799,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 130033052679111590, guid: 0877107294c7979448e43ccfefc16132,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.9012116
-      objectReference: {fileID: 0}
-    - target: {fileID: 130033052679111590, guid: 0877107294c7979448e43ccfefc16132,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.9012116
-      objectReference: {fileID: 0}
-    - target: {fileID: 130033052679111590, guid: 0877107294c7979448e43ccfefc16132,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 3.1686862
-      objectReference: {fileID: 0}
-    - target: {fileID: 130033052679111590, guid: 0877107294c7979448e43ccfefc16132,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.2565
-      objectReference: {fileID: 0}
-    - target: {fileID: 130033052679111590, guid: 0877107294c7979448e43ccfefc16132,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.030326
-      objectReference: {fileID: 0}
-    - target: {fileID: 130033052679111590, guid: 0877107294c7979448e43ccfefc16132,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -11.845
-      objectReference: {fileID: 0}
-    - target: {fileID: 130033052679111591, guid: 0877107294c7979448e43ccfefc16132,
-        type: 3}
-      propertyPath: maxDistance
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 130033052679111591, guid: 0877107294c7979448e43ccfefc16132,
-        type: 3}
-      propertyPath: minDistance
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 130033052679111591, guid: 0877107294c7979448e43ccfefc16132,
-        type: 3}
-      propertyPath: defaultDistance
-      value: 0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 130033053305998218, guid: 0877107294c7979448e43ccfefc16132,
         type: 3}
       propertyPath: m_Name
       value: Airlock Tutorial
       objectReference: {fileID: 0}
-    - target: {fileID: 130033053305998218, guid: 0877107294c7979448e43ccfefc16132,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 130033053305998219, guid: 0877107294c7979448e43ccfefc16132,
         type: 3}
       propertyPath: m_RootOrder
       value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 130033053305998219, guid: 0877107294c7979448e43ccfefc16132,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.21129294
-      objectReference: {fileID: 0}
-    - target: {fileID: 130033053305998219, guid: 0877107294c7979448e43ccfefc16132,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.21129294
-      objectReference: {fileID: 0}
-    - target: {fileID: 130033053305998219, guid: 0877107294c7979448e43ccfefc16132,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.21129294
       objectReference: {fileID: 0}
     - target: {fileID: 130033053305998219, guid: 0877107294c7979448e43ccfefc16132,
         type: 3}
@@ -5899,12 +5864,17 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 1192631355106146610, guid: 0877107294c7979448e43ccfefc16132,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3074105937189714282, guid: 0877107294c7979448e43ccfefc16132,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5830743726583665817, guid: 0877107294c7979448e43ccfefc16132,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8182406950937006766, guid: 0877107294c7979448e43ccfefc16132,
         type: 3}
       propertyPath: m_Mesh
       value: 
