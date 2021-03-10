@@ -15,9 +15,11 @@ public class AirlockTutorialController : MonoBehaviour
 	public ProgressBar pressureBar;
 
 	public GameObject tutorialButton;
-
+	private AudioSource audioSource;
+	public AudioClip[] instructionSounds;
     private void Start()
     {
+		audioSource = GetComponent<AudioSource>();
         switch (currentInstruction)
         {
             case 0:
@@ -46,22 +48,30 @@ public class AirlockTutorialController : MonoBehaviour
     public void OpenFrontDoor()
 	{
 		frontDoorAnimator.Play("Open Front Door");
+		audioSource.clip = instructionSounds[0];
+		audioSource.Play();
 	}
 
 	public void CloseFrontDoor()
 	{
 		frontDoorAnimator.Play("Close Front Door");
+		audioSource.clip = instructionSounds[1];
+		audioSource.Play();
 	}
 
 	public void OpenBackDoor()
 	{
 		backDoorAnimator.Play("Open Back Door");
+		audioSource.clip = instructionSounds[2];
+		audioSource.Play();
 	}
 
 
 	public void CloseBackDoor()
 	{
 		backDoorAnimator.Play("Close Back Door");
+		audioSource.clip = instructionSounds[1];
+		audioSource.Play();
 	}
 
 	public void NextInstruction()
@@ -115,6 +125,8 @@ public class AirlockTutorialController : MonoBehaviour
 
 	private IEnumerator DepressurizeChamber()
 	{
+		audioSource.clip = instructionSounds[3];
+		audioSource.Play();
 		float startTime = Time.time;
 		while (Time.time - startTime < pressureTime)
 		{
@@ -122,7 +134,8 @@ public class AirlockTutorialController : MonoBehaviour
 
 			yield return new WaitForEndOfFrame();
 		}
-
+		audioSource.clip = instructionSounds[4];
+		audioSource.Play();
 		isInstructionReady = true;
 		tutorialButton.SetActive(true);
 		pressureBar.gameObject.SetActive(false);
